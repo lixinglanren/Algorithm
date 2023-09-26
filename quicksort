@@ -1,0 +1,30 @@
+#思想 双指针
+#include<bits/stdc++.h>
+using namespace std;
+const int N = 10000;
+int A[N];
+void quick_sort(int l, int r)
+{
+	if(l >= r) return;
+	int i = l - 1, j = r + 1;
+	int x = A[l];
+	while(i < j)
+	{                          #和第一个锁定的值比较，若比它小则左指针增加；若比它大则右指针减小
+		do i++; while(A[i] < x);
+		do j--; while(A[j] > x);
+		if(i < j) swap(A[i], A[j]);  #左指针小于右指针则交换两个值
+	}
+	quick_sort(l, j); #递归排序左边
+	quick_sort(j+1, r); #递归排序右边
+}
+int main()
+{
+	int n;
+	cin >> n;
+	for(int i = 0; i < n; i++)
+		cin >> A[i];
+	quick_sort(0, n-1);
+	for(int i = 0; i < n; i++)
+		cout << A[i] << ' ';
+	return 0;
+} 
